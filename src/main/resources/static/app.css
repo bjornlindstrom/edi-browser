@@ -1,0 +1,10 @@
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+
+.divider {
+	width:5px;
+    height:auto;
+    display:inline-block;
+}
+

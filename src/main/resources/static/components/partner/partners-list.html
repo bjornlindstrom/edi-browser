@@ -1,0 +1,32 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<h1>Partners</h1>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Alias id</th>
+						<th>Path name</th>
+						<th>Contact</th>
+						<th>Phone</th>
+						<th>Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="partner in partners">
+						<th scope="row">{{partner.id}}</th>
+						<td><a href="#/partner/{{partner.id}}">{{partner.name}}</a></td>
+						<td>{{partner.aliasId}}</td>
+						<td>{{partner.pathName}}</td>
+						<td>{{partner.contact}}</td>
+						<td>{{partner.phone}}</td>
+						<td>{{partner.email}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

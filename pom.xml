@@ -22,6 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<start-class>se.onroad.EdiBrowserApplication</start-class>
 		<java.version>1.8</java.version>
+		
+		
 	</properties>
 
 	<dependencies>
@@ -51,6 +53,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		
 	</dependencies>
 
 	<build>

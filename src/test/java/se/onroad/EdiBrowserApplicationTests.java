@@ -6,7 +6,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import se.onroad.edibrowser.EdiBrowserApplication;
+import com.afconsult.edibrowser.EdiBrowserApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = EdiBrowserApplication.class)

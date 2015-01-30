@@ -1,0 +1,28 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<h1>Errors</h1>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Event id</th>
+						<th>Date</th>
+						<th>Module</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="error in errors">
+						<th scope="row">{{error.id}}</th>
+						<td>{{error.eventId}}</td>
+						<td>{{error.date}}</td>
+						<td>{{error.module}}</td>
+						<td>{{error.description}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

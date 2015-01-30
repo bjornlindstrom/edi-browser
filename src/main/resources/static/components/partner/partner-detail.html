@@ -1,0 +1,121 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<h1>{{partner.name}}</h1>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="name" class="col-sm-1 control-label">Name</label>
+				 	<div class="col-sm-5">
+				 		<input id="name" class="form-control" type="text" ng-model="partner.name" />
+				 	</div>
+				 </div>
+				 <div class="form-group">
+				 	<label for="aliasId" class="col-sm-1 control-label">Alias id</label>
+				 	<div class="col-sm-5">
+				 		<input id="aliasId" class="form-control" type="text" ng-model="partner.aliasId" />
+				 	</div>	
+				 </div>
+				 <div class="form-group">
+				 	<label for="contact" class="col-sm-1 control-label">Contact</label>
+				 	<div class="col-sm-5">
+				 		<input id="contact" class="form-control" type="text" ng-model="partner.contact" />
+				 	</div>	
+				 </div>
+				 <div class="form-group">
+				 	<label for="phone" class="col-sm-1 control-label">Phone</label>
+				 	<div class="col-sm-5">
+				 		<input id="phone" class="form-control" type="text" ng-model="partner.phone" />
+				 	</div>	
+				 </div>
+				 <div class="form-group">
+				 	<label for="email" class="col-sm-1 control-label">Email</label>
+				 	<div class="col-sm-5">
+				 		<input id="email" class="form-control" type="text" ng-model="partner.email" />
+				 	</div>	
+				 </div>	
+				 <div class="form-group">
+				 	<div class="col-sm-7 pull-right">
+					 	<button id="savePartner" ng-click="savePartner($event)" type="button" class="btn btn-success btn-sm">
+							<i class="fa fa-check"></i>
+						</button>
+						<div class="divider"/>
+				 	 	<button ng-click="resetPartner()" type="button" class="btn btn-danger btn-sm">
+							<i class="fa fa-times"></i>
+						</button>
+					</div>
+				</div>			
+			</form>
+			<h2>Partner jobs</h2>
+			<form>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Directory watch</th>
+							<th>File extension</th>
+							<th>Direction</th>
+							<th>Online</th>
+							<th>Job path name</th>
+							<th>Number attempts allowed</th>
+							<th>Priority</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="job in partner.partnerJobs">
+							<th scope="row">{{job.id}}</td>
+							<td>
+								<div class="form-group">
+									<select class="form-control" ng-model="job.partnerJobName">
+										<option value="Statusevent">Statusevent</option>
+										<option value="StatuseventNF">StatuseventNF</option>
+										<option value="Cockpit order">Cockpit order</option>
+										<option value="Cockpit productionsorder">Cockpit productionsorder</option>
+										<option value="Message">Message</option>
+									</select>
+								</div>
+							</td>
+							<td><input class="form-control" type="text" ng-model="job.directoryWatch" /></td>
+							<td>
+								<div class="form-group">
+									<select class="form-control" ng-model="job.fileExtension">
+										<option value="xml">xml</option>
+									</select>
+								</div>
+							</td>
+							<td><input class="form-control" type="checkbox" ng-model="job.direction" /></td>
+							<td><input class="form-control" type="checkbox" ng-model="job.online" /></td>
+							<td><select class="form-control" ng-model="job.jobPathName">
+									<option value="statusevent">statusevent</option>
+									<option value="kundorder">kundorder</option>
+									<option value="productionorder">productionorder</option>
+									<option value="order">order</option>
+									<option value="message">message</option>
+									<option value="statuseventNF">statuseventNF</option>
+							</select></td>
+							<td><input type="text" class="form-control" ng-model="job.numberOfAttemptsAllowed" size="2" maxlength="2" /></td>
+							<td><input type="text" class="form-control" ng-model="job.priority" size="1" maxlength="1" /></td>
+							<td>
+								<button ng-click="saveJob($index)" type="button" class="btn btn-success btn-sm">
+									<i class="fa fa-check"></i>
+								</button>
+							</td>
+							<td><button ng-click="reset($index)" type="button" class="btn btn-danger btn-sm">
+									<i class="fa fa-times"></i>
+								</button>
+							</td>
+							<td>
+								<table>
+									<tr ng-repeat="process in job.processes"><td>{{process.id}}</td></tr>
+								</table>								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,4 +1,4 @@
-package se.onroad.edibrowser;
+package com.afconsult.edibrowser;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
