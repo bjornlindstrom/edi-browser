@@ -1,6 +1,7 @@
 'use strict';
 
-var ediApp = angular.module('ediApp', ['ngRoute', 
+var ediApp = angular.module('ediApp', ['ui.bootstrap',
+                                       'ngRoute', 
                                        'appController', 
                                        'partnerController', 
                                        'partnerService',

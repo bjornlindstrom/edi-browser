@@ -1,22 +1,22 @@
 package com.afconsult.edibrowser.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.afconsult.edibrowser.domain.EdiError;
-import com.afconsult.edibrowser.domain.EdiErrorRepository;
+import com.afconsult.edibrowser.repository.EdiErrorRepository;
 
 @Service
 public class EdiErrorServiceImpl implements EdiErrorService {
 
 	@Autowired
-	private EdiErrorRepository errorRepository;
+	private EdiErrorRepository ediErrorRepository;
 	
 	@Override
-	public List<EdiError> getAllEdiErrors() {
-		return errorRepository.findEdiErrors();
+	public Page<EdiError> getAllEdiErrors(Pageable pageable) {	
+		return ediErrorRepository.findAll(pageable);
 	}
 
 }

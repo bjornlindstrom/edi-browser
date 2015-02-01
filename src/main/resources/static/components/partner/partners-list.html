@@ -16,7 +16,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="partner in partners">
+					<tr ng-repeat="partner in data.content">
 						<th scope="row">{{partner.id}}</th>
 						<td><a href="#/partner/{{partner.id}}">{{partner.name}}</a></td>
 						<td>{{partner.aliasId}}</td>
@@ -27,6 +27,9 @@
 					</tr>
 				</tbody>
 			</table>
+		    <hr />
+	    	<pagination  ng-change="selectPage()" items-per-page="itemsPerPage" total-items="totalItems" ng-model="currentPage" max-size="8" class="pagination-sm" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" rotate="false" num-pages="numPages"></pagination>
+			
 		</div>
 	</div>
 </div>

@@ -4,23 +4,45 @@ var partnerController = angular.module('partnerController', ['partnerService']);
 
 partnerController.controller('partnerCtrl', ['$scope', '$http',
   function ($scope, $http) {
-    $http.get('/partner').success(function(data) {
-      $scope.partners = data;
-    });
+    
+	$scope.itemsPerPage = 10;
+
+	$scope.initPage = function(data){
+		if(data){
+			$scope.totalItems = $scope.data.totalElements;
+			// backend paging is 0 based.
+			$scope.currentPage = $scope.data.number+1;
+			$scope.numPages = $scope.data.totalPages;
+		}
+	}
+	
+	$scope.selectPage = function() {		
+		$http.get('/partner?page='+($scope.currentPage > 0 ? $scope.currentPage-1 : 0)+'&sort=id,asc&size='+$scope.itemsPerPage).success(function(data) {
+		      $scope.data = data;		      
+			  $scope.initPage(data);	
+		    });
+	};
+	
+	$scope.selectPage(0);
+    
   }]);
 
 partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routeParams', 'partnerService',
   function($scope, $http, $routeParams, partnerService) {
 		
-	$http.get('/partner/'+$routeParams.partnerId).success(function(data) {
+	$http.get('/partner/'+$routeParams.partnerId)
+	.success(function(data) {
 	      $scope.partner = data;
 	      $scope.backup = angular.copy(data);
 	      $scope.partnerId = $routeParams.partnerId;
+	})
+	.error(function(data){
+		console.log(data);
 	});
 	
 	$scope.savePartner = function(event){
 		partnerService.toggleButton(event.target);
-		$http.post('/partner/save', $scope.partner)
+		$http.post('/partner', $scope.partner)
         .success(function(){
         	console.log('success save partner');
         	partnerService.toggleButton(event.target);
@@ -38,7 +60,7 @@ partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routePar
 	    $scope.saveJob = function (idx) {
 	        // set the partner id to the job.
 	    	$scope.partner.partnerJobs[idx].partner = {id:$scope.partner.id};
-	        $http.post('/partner/savejob', $scope.partner.partnerJobs[idx])
+	        $http.post('/partnerjob', $scope.partner.partnerJobs[idx])
 	        .success(function(){
 	        	console.log('success');
 	        });

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -36,6 +37,9 @@ public class Process implements Serializable {
 	private int processorId;
 	private boolean notifyOnSuccess;
 	private boolean notifyOnError;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "process_name_id")
+//	private ProcessName processName;
 
 	public Integer getId() {
 		return id;
@@ -92,6 +96,14 @@ public class Process implements Serializable {
 	public void setNotifyOnError(boolean notifyOnError) {
 		this.notifyOnError = notifyOnError;
 	}
+//
+//	public ProcessName getProcessName() {
+//		return processName;
+//	}
+//
+//	public void setProcessName(ProcessName processName) {
+//		this.processName = processName;
+//	}
 
 	@Override
 	public String toString() {

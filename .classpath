@@ -28,6 +28,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Program Files/apache software foundation/apache-tomcat-7.0.55/lib/mysql-connector-java-5.1.26.jar"/>
+	<classpathentry kind="lib" path="C:/projects/onroad/edi-browser/mysql-connector-java-5.1.26.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

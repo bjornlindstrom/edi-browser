@@ -47,7 +47,7 @@
 				</div>			
 			</form>
 			<h2>Partner jobs</h2>
-			<form>
+			<form ng-repeat="job in partner.partnerJobs">
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -60,12 +60,10 @@
 							<th>Job path name</th>
 							<th>Number attempts allowed</th>
 							<th>Priority</th>
-							<th></th>
-							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="job in partner.partnerJobs">
+						<tr>
 							<th scope="row">{{job.id}}</td>
 							<td>
 								<div class="form-group">
@@ -98,23 +96,37 @@
 							</select></td>
 							<td><input type="text" class="form-control" ng-model="job.numberOfAttemptsAllowed" size="2" maxlength="2" /></td>
 							<td><input type="text" class="form-control" ng-model="job.priority" size="1" maxlength="1" /></td>
-							<td>
-								<button ng-click="saveJob($index)" type="button" class="btn btn-success btn-sm">
-									<i class="fa fa-check"></i>
-								</button>
-							</td>
-							<td><button ng-click="reset($index)" type="button" class="btn btn-danger btn-sm">
-									<i class="fa fa-times"></i>
-								</button>
-							</td>
-							<td>
-								<table>
-									<tr ng-repeat="process in job.processes"><td>{{process.id}}</td></tr>
-								</table>								
-							</td>
 						</tr>
 					</tbody>
+					
 				</table>
+				<div>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Order</th>
+								<th>Description</th>
+								<th>Processor id</th>
+								<th>Notify on success</th>
+								<th>Notify on error</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="process in job.processes">
+								<td>{{process.id}}</td>
+								<td>{{process.order}}</td>
+								<td>{{process.description}}</td>
+								<td>{{process.processorId}}</td>
+								<td>{{process.notifyOnSuccess}}</td>
+								<td>{{process.notifyOnError}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<button ng-click="saveJob($index)" type="button" class="btn btn-success btn-sm">
+					<i class="fa fa-check"></i>
+				</button>
 			</form>
 		</div>
 	</div>

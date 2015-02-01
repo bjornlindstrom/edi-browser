@@ -1,11 +1,12 @@
 package com.afconsult.edibrowser.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.afconsult.edibrowser.domain.EdiError;
 
 public interface EdiErrorService {
 
-	List<EdiError> getAllEdiErrors();
+	Page<EdiError> getAllEdiErrors(Pageable pageable);
 	
 }

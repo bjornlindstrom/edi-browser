@@ -1,8 +1,8 @@
 package com.afconsult.edibrowser.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +16,8 @@ public class EdiErrorController {
 	private EdiErrorService ediErrorService;
 	
 	@RequestMapping("/edierror")
-	public List<EdiError> getEdiErrors(){
-		return ediErrorService.getAllEdiErrors();
+	public Page<EdiError> getEdiErrors(Pageable pageable){
+		return ediErrorService.getAllEdiErrors(pageable);
 	}
 	
 	

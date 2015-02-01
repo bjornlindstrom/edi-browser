@@ -1,17 +1,19 @@
 package com.afconsult.edibrowser.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.afconsult.edibrowser.domain.Partner;
 import com.afconsult.edibrowser.domain.PartnerJob;
-import com.afconsult.edibrowser.domain.PartnerRepository;
+import com.afconsult.edibrowser.repository.PartnerRepository;
+
+import exception.ItemNotFoundException;
 
 @Service
 public class PartnerServiceImpl implements PartnerService {
@@ -22,34 +24,29 @@ public class PartnerServiceImpl implements PartnerService {
 	private Logger logger = LoggerFactory.getLogger(PartnerServiceImpl.class);
 	
 	@Override
-	public List<Partner> getAllPartners() {
-		return partnerRepository.findPartners();
+	public Page<Partner> getAllPartners(Pageable pageable) {
+		return partnerRepository.findAll(pageable);
 	}
 
 	@Override
 	public Partner getPartner(Integer partnerId) {
-		Partner partner = partnerRepository.findPartnerById(partnerId);
+		Partner partner = partnerRepository.findOne(partnerId);
 		if (partner != null) {
 			for (PartnerJob partnerJob : partner.getPartnerJobs()) {
 				partnerJob.getProcesses();
 			}
+		}
+		if (partner == null || partner.getId() == null || partner.getAliasId() == null) {
+			throw new ItemNotFoundException("No partner found with id:" + partnerId);
 		}
 		return partner;
 	}
 
 	@Override
 	@Transactional
-	public void savePartnerJob(PartnerJob partnerJob) {
-		logger.info("Save PartnerJob: {}", partnerJob);
-		partnerRepository.savePartnerJob(partnerJob);
-
-	}
-
-	@Override
-	@Transactional
 	public void savePartner(Partner partner) {
 		logger.info("Save Partner: {}", partner);
-		partnerRepository.savePartner(partner);
+		partnerRepository.save(partner);
 	}
 
 }
