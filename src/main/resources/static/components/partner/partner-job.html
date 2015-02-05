@@ -2,20 +2,18 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>Name</th>
 				<th>Directory watch</th>
 				<th>File extension</th>
 				<th>Direction</th>
 				<th>Online</th>
 				<th>Job path name</th>
-				<th>Number attempts allowed</th>
+				<th>Attempts allowed</th>
 				<th>Priority</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<th scope="row">{{job.id}}</td>
 				<td>
 					<div class="form-group">
 						<select class="form-control" ng-model="job.partnerJobName">
@@ -49,9 +47,9 @@
 						<option value="message">message</option>
 						<option value="statuseventNF">statuseventNF</option>
 				</select></td>
-				<td><input type="text" class="form-control"
+				<td class="col-md-1"><input type="number" class="form-control"
 					ng-model="job.numberOfAttemptsAllowed" size="2" maxlength="2" /></td>
-				<td><input type="text" class="form-control"
+				<td class="col-md-1"><input type="number" class="form-control"
 					ng-model="job.priority" size="1" maxlength="1" /></td>
 			</tr>
 		</tbody>
@@ -61,7 +59,6 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
 					<th>Order</th>
 					<th>Description</th>
 					<th>Processor id</th>
@@ -71,7 +68,6 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="process in job.processes">
-					<td>{{process.id}}</td>
 					<td>{{process.order}}</td>
 					<td>{{process.description}}</td>
 					<td>{{process.processorId}}</td>
@@ -81,9 +77,6 @@
 			</tbody>
 		</table>
 	</div>
-	<button ng-click="saveJob($index)" type="button"
-		class="btn btn-success btn-sm">
-		<i class="fa fa-check"></i>
-	</button>
+	<button ng-click="saveJob($index)" type="button" class="btn btn-primary pull-right">Save</button>
 </form>
 	
