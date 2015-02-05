@@ -69,6 +69,14 @@ partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routePar
 	    $scope.reset = function (idx) {
 	    	$scope.partner.partnerJobs[idx] = angular.copy($scope.backup.partnerJobs[idx]);
 	    };
+	    
+}])
+.directive('partnerJob', function(){
 	
-}]);
+	return {
+		  restrict:'E',
+		  templateUrl: '/components/partner/partner-job.html',
+		  scope: true,	      
+	};
+});
 

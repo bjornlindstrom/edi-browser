@@ -1,10 +1,30 @@
 'use strict';
 
-var appController = angular.module('appController', []);
+angular.module('appController', [])
+.directive('navMenu', function($location) {
+  return {
+	  restrict:'E',
+	  templateUrl: '/components/nav-menu.html',
+	  scope: false,
+      link: function (scope, element) {
+          
+    	  function setActive() {
+              var path = $location.path();
+              if (path) {
+                  angular.forEach(element.find('li'), function (li) {
+                      var anchor = li.querySelector('a');
+                      if (anchor.href.match('#' + path + '(?=\\?|$)')) {
+                          angular.element(li).addClass('active');
+                      } else {
+                          angular.element(li).removeClass('active');
+                      }
+                  });
+              }
+          }
 
-appController.controller('headerCtrl', ['$scope', '$location',
-                                            function($scope, $location) { 
-    $scope.isActive = function (viewLocation) { 
-        return viewLocation === $location.path();
-    };
-}]);
+          setActive();
+
+          scope.$on('$locationChangeSuccess', setActive);
+      }
+  };   
+});
