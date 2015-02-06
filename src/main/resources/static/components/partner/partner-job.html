@@ -1,61 +1,77 @@
 <form>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Directory watch</th>
-				<th>File extension</th>
-				<th>Direction</th>
-				<th>Online</th>
-				<th>Job path name</th>
-				<th>Attempts allowed</th>
-				<th>Priority</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					<div class="form-group">
-						<select class="form-control" ng-model="job.partnerJobName">
-							<option value="Statusevent">Statusevent</option>
-							<option value="StatuseventNF">StatuseventNF</option>
-							<option value="Cockpit order">Cockpit order</option>
-							<option value="Cockpit productionsorder">Cockpit
-								productionsorder</option>
-							<option value="Message">Message</option>
-						</select>
-					</div>
-				</td>
-				<td><input class="form-control" type="text"
-					ng-model="job.directoryWatch" /></td>
-				<td>
-					<div class="form-group">
-						<select class="form-control" ng-model="job.fileExtension">
-							<option value="xml">xml</option>
-						</select>
-					</div>
-				</td>
-				<td><input class="form-control" type="checkbox"
-					ng-model="job.direction" /></td>
-				<td><input class="form-control" type="checkbox"
-					ng-model="job.online" /></td>
-				<td><select class="form-control" ng-model="job.jobPathName">
-						<option value="statusevent">statusevent</option>
-						<option value="kundorder">kundorder</option>
-						<option value="productionorder">productionorder</option>
-						<option value="order">order</option>
-						<option value="message">message</option>
-						<option value="statuseventNF">statuseventNF</option>
-				</select></td>
-				<td class="col-md-1"><input type="number" class="form-control"
-					ng-model="job.numberOfAttemptsAllowed" size="2" maxlength="2" /></td>
-				<td class="col-md-1"><input type="number" class="form-control"
-					ng-model="job.priority" size="1" maxlength="1" /></td>
-			</tr>
-		</tbody>
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label for="partnerJobName" class="col-sm-2 control-label">Job name</label>
+			<div class="col-sm-3">
+				<select id="partnerJobName" class="form-control" ng-model="job.partnerJobName">
+					<option value="Statusevent">Statusevent</option>
+					<option value="StatuseventNF">StatuseventNF</option>
+					<option value="Cockpit order">Cockpit order</option>
+					<option value="Cockpit productionsorder">Cockpit
+						productionsorder</option>
+					<option value="Message">Message</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="directoryWatch" class="col-sm-2 control-label">Directory watch</label>
+			<div class="col-sm-5">
+				<input id="directoryWatch" class="form-control" type="text" ng-model="job.directoryWatch" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="fileExtension" class="col-sm-2 control-label">File extension</label>
+			<div class="col-sm-2">
+				<select id="fileExtension" class="form-control" ng-model="job.fileExtension">
+					<option value="xml">xml</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="direction" class="col-sm-2 control-label">Direction</label>
+			<div class="col-sm-1 pull-left">
+				<input id="direction" class="form-control" type="checkbox"
+					ng-model="job.direction" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="online" class="col-sm-2 control-label">Online</label>
+			<div class="col-sm-1">
+				<input id="online" class="form-control" type="checkbox"
+					ng-model="job.online" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="jobPathName" class="col-sm-2 control-label">Job path name</label>
+			<div class="col-sm-2">
+				<select id="jobPathName" class="form-control" ng-model="job.jobPathName">
+					<option value="statusevent">statusevent</option>
+					<option value="kundorder">kundorder</option>
+					<option value="productionorder">productionorder</option>
+					<option value="order">order</option>
+					<option value="message">message</option>
+					<option value="statuseventNF">statuseventNF</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="numberOfAttemptsAllowed" class="col-sm-2 control-label">Attempts allowed</label>
+			<div class="col-sm-2">
+				<input id="numberOfAttemptsAllowed" type="number" class="form-control"
+					ng-model="job.numberOfAttemptsAllowed" size="2" maxlength="2" />
+			</div>
+		</div>			
+		<div class="form-group">
+			<label for="priority" class="col-sm-2 control-label">Priority</label>
+			<div class="col-sm-2">
+				<input id="priority" type="number" class="form-control"
+					ng-model="job.priority" size="1" maxlength="1" />
+			</div>
+		</div>			
+	</div>
 
-	</table>
 	<div>
+		<h3>Processes</h3>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -68,11 +84,23 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="process in job.processes">
-					<td>{{process.order}}</td>
-					<td>{{process.description}}</td>
-					<td>{{process.processorId}}</td>
-					<td>{{process.notifyOnSuccess}}</td>
-					<td>{{process.notifyOnError}}</td>
+					<td><input id="order" type="number" class="form-control"
+					ng-model="process.order" size="1" maxlength="1" /></td>
+					<td>
+						<select id="processDescription" class="form-control" ng-model="process.description">
+							<option value="converter">converter</option>
+							<option value="archive">archive</option>
+							<option value="transfer">transfer</option>
+							<option value="convert">convert</option>
+							<option value="validate">validate</option>
+						</select>
+					</td>
+					<td><input id="processorId" type="number" class="form-control"
+					ng-model="process.processorId" /></td>
+					<td><input id="notifyOnSuccess" class="form-control" type="checkbox"
+					ng-model="process.notifyOnSuccess" /></td>
+					<td><input id="notifyOnError" class="form-control" type="checkbox"
+					ng-model="process.notifyOnError" /></td>
 				</tr>
 			</tbody>
 		</table>

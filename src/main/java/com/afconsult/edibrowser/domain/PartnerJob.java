@@ -3,6 +3,7 @@ package com.afconsult.edibrowser.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -25,20 +29,29 @@ public class PartnerJob implements Serializable {
 	@GeneratedValue
 	@Column(name = "partner_job_id", unique = true, updatable = false, nullable = false)
 	private Integer id;
+	@NotNull
 	private String partnerJobName;
+	@NotNull
 	private String directoryWatch;
+	@NotNull
 	private String fileExtension;
 	private boolean direction;
 	private boolean online;
 	@Column(name = "partner_job_path_name")
+	@NotNull
 	private String jobPathName;
+	@Min(value = 1)
 	private int numberOfAttemptsAllowed;
+	@NotNull
+	@Min(value = 1)
 	private Integer priority;
 	@ManyToOne
 	@JoinColumn(name = "partner_id")
+	@NotNull
 	@JsonBackReference
 	private Partner partner;
-	@OneToMany(mappedBy = "partnerJob")
+	@OneToMany(mappedBy = "partnerJob", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@Valid
 	@JsonManagedReference
 	private List<Process> processes;
 

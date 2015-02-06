@@ -12,6 +12,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -30,19 +34,24 @@ public class Partner implements Serializable {
 	@Column(unique = true, nullable = false, updatable = false, name = "partner_id")
 	private Integer id;
 	@Column(name = "partner_alias_id")
+	@NotNull
 	private Integer aliasId;
 	@Column(name = "partner_name")
+	@NotNull
 	private String name;
 	@Column(name = "partner_path_name")
+	@NotNull
 	private String pathName;
 	@Column(name = "partner_contact")
 	private String contact;
 	@Column(name = "partner_phone")
 	private String phone;
 	@Column(name = "partner_email")
+	@Email
 	private String email;
 	@OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
 	@JsonManagedReference
+	@Valid
 	private List<PartnerJob> partnerJobs;
 
 	public Integer getId() {

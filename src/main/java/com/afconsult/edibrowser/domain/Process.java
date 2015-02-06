@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -27,14 +27,18 @@ public class Process implements Serializable {
 	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "partner_job_id")
+	@NotNull
 	@JsonBackReference
 	private PartnerJob partnerJob;
 	@Column(name = "process_order")
-	private int order;
+	@NotNull
+	private Integer order;
 	@Column(name = "process_description")
+	@NotNull
 	private String description;
 	// private ProcessNames processNames;
-	private int processorId;
+	@NotNull
+	private Integer processorId;
 	private boolean notifyOnSuccess;
 	private boolean notifyOnError;
 //	@ManyToOne(fetch = FetchType.LAZY)
@@ -57,11 +61,11 @@ public class Process implements Serializable {
 		this.partnerJob = partnerJob;
 	}
 
-	public int getOrder() {
+	public Integer getOrder() {
 		return order;
 	}
 
-	public void setOrder(int order) {
+	public void setOrder(Integer order) {
 		this.order = order;
 	}
 
@@ -73,11 +77,11 @@ public class Process implements Serializable {
 		this.description = description;
 	}
 
-	public int getProcessorId() {
+	public Integer getProcessorId() {
 		return processorId;
 	}
 
-	public void setProcessorId(int processorId) {
+	public void setProcessorId(Integer processorId) {
 		this.processorId = processorId;
 	}
 

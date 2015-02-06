@@ -37,18 +37,18 @@ partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routePar
 	      $scope.partnerId = $routeParams.partnerId;
 	})
 	.error(function(data){
-		console.log(data);
+		$scope.addError(data);		
 	});
 	
 	$scope.savePartner = function(event){
 		partnerService.toggleButton(event.target);
 		$http.post('/partner', $scope.partner)
         .success(function(){
-        	console.log('success save partner');
+        	$scope.addSuccess("Saved partner successfully");
         	partnerService.toggleButton(event.target);
         })
-        .error(function(){
-        	console.log('error save partner');
+        .error(function(data){
+        	$scope.addSuccess("Error when saving partner. " + data);
         	partnerService.toggleButton(event.target);
         });
 	};
