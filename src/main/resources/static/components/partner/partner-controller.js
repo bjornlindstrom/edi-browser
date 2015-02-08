@@ -1,9 +1,9 @@
 'use strict';
 
-var partnerController = angular.module('partnerController', ['partnerService']);
+var partnerController = angular.module('partnerController', ['partnerService','angular-flash.service', 'angular-flash.flash-alert-directive']);
 
-partnerController.controller('partnerCtrl', ['$scope', '$http',
-  function ($scope, $http) {
+partnerController.controller('partnerCtrl', ['$scope', '$http','flash', 
+  function ($scope, $http, flash) {
     
 	$scope.itemsPerPage = 10;
 
@@ -23,12 +23,13 @@ partnerController.controller('partnerCtrl', ['$scope', '$http',
 		    });
 	};
 	
-	$scope.selectPage(0);
-    
+	$scope.selectPage(0);    
+	
+	flash.error = "test";
   }]);
 
-partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routeParams', 'partnerService',
-  function($scope, $http, $routeParams, partnerService) {
+partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routeParams', 'partnerService', 'flash',
+  function($scope, $http, $routeParams, partnerService, flash) {
 		
 	$http.get('/partner/'+$routeParams.partnerId)
 	.success(function(data) {
@@ -46,6 +47,7 @@ partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routePar
         .success(function(){
         	$scope.addSuccess("Saved partner successfully");
         	partnerService.toggleButton(event.target);
+        	flash.success = "Saved partner successfully";
         })
         .error(function(data){
         	$scope.addSuccess("Error when saving partner. " + data);

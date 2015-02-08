@@ -6,10 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EDI-engine browser</title>
 <link href="bower_components/bootstrap/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+	rel="stylesheet"/>
 <link href="bower_components/fontawesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<link href="app.css" rel="stylesheet">
+	rel="stylesheet"/>
+<link href="app.css" rel="stylesheet"/>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -28,6 +28,12 @@
       <strong>Warning!</strong> {{alerts}}
     </div>
 		</div>
+		<div flash-alert active-class="in" class="alert fade" duration="0">
+		    <!-- Manually hide the alert with `hide()` -->
+		    <button type="button" class="close" ng-click="hide()">&times;</button>
+		    <strong class="alert-heading">Boo!</strong>
+		    <span class="alert-message">{{flash.message}}</span>
+		</div>
 	</header>
 	<div ng-view></div>
 
@@ -35,6 +41,7 @@
 	<script src="bower_components/angular/angular.min.js"></script>
 	<script src="bower_components/angular-route/angular-route.min.js"></script>
 	<script src="bower_components/angular-messages/angular-messages.min.js"></script>
+	<script src="bower_components/angular-flash/dist/angular-flash.min.js"></script>
 <!-- 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 	<script src="app.js"></script>
