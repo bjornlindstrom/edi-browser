@@ -1,20 +1,6 @@
 'use strict';
 
 angular.module('appDirectives', [])
-.controller('alertCtrl', function ($rootScope) {
-	$rootScope.alerts = [];
-  
-	$rootScope.addSuccess = function(msg){
-		$rootScope.alerts.push({type: 'success', msg: msg});
-  };
-  $rootScope.addError = function(msg){
-	  $rootScope.alerts.push({type: 'danger', msg: msg});
-  };
-
-  $rootScope.closeAlert = function(index) {
-	  $rootScope.alerts.splice(index, 1);
-  };
-})
 .directive('navMenu', function($location) {
   return {
 	  restrict:'E',

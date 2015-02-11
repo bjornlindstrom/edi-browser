@@ -13,7 +13,7 @@ import com.afconsult.edibrowser.service.PartnerJobService;
 
 @RestController
 public class PartnerJobController {
-
+	
 	@Autowired
 	private PartnerJobService partnerJobService;
 	

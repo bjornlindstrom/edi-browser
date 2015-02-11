@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 import com.afconsult.edibrowser.domain.Partner;
 import com.afconsult.edibrowser.domain.PartnerJob;
 import com.afconsult.edibrowser.repository.PartnerRepository;
-
-import exception.ItemNotFoundException;
+import com.afconsult.exception.ItemNotFoundException;
 
 @Service
 public class PartnerServiceImpl implements PartnerService {

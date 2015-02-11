@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.afconsult.edibrowser.domain.Partner;
-import com.afconsult.edibrowser.service.PartnerJobService;
 import com.afconsult.edibrowser.service.PartnerService;
 
 @RestController
@@ -21,21 +20,23 @@ public class PartnerController {
 	@Autowired
 	private PartnerService partnerService;
 	
-	@Autowired
-	private PartnerJobService partnerJobService;
-	
 	@RequestMapping(value = "/partner", method = RequestMethod.GET)
 	public Page<Partner> getPartners(Pageable pageable){
 		return partnerService.getAllPartners(pageable);
 	}
 	
-	@RequestMapping("/partner/{partnerId}")
+	@RequestMapping(value = "/partner/{partnerId}", method = RequestMethod.GET)
 	public Partner getPartner(@PathVariable Integer partnerId){
 		return partnerService.getPartner(partnerId);
 	}
 	
 	@RequestMapping(value = "/partner", method = RequestMethod.POST)
 	public void savePartner(@RequestBody @Valid Partner partner){
+		partnerService.savePartner(partner);		
+	}
+	
+	@RequestMapping(value = "/partner", method = RequestMethod.PUT)
+	public void updatePartner(@RequestBody @Valid Partner partner){
 		partnerService.savePartner(partner);		
 	}
 }

@@ -1,72 +1,86 @@
-<form>
+<form name="partnerJob" novalidate>
 	<div class="form-horizontal">
-		<div class="form-group">
-			<label for="partnerJobName" class="col-sm-2 control-label">Job name</label>
-			<div class="col-sm-3">
-				<select id="partnerJobName" class="form-control" ng-model="job.partnerJobName">
-					<option value="Statusevent">Statusevent</option>
-					<option value="StatuseventNF">StatuseventNF</option>
-					<option value="Cockpit order">Cockpit order</option>
-					<option value="Cockpit productionsorder">Cockpit
-						productionsorder</option>
-					<option value="Message">Message</option>
-				</select>
-			</div>
+		<div class="form-group" ng-class="{'has-error': fieldPartnerJobName.partnerJobName.$invalid}">
+			<ng-form name="fieldPartnerJobName">
+				<label for="partnerJobName" class="col-sm-2 control-label">Job name</label>
+				<div class="col-sm-3">
+					<select id="partnerJobName" name="partnerJobName" class="form-control" ng-model="job.partnerJobName" required>
+						<option value="Statusevent">Statusevent</option>
+						<option value="StatuseventNF">StatuseventNF</option>
+						<option value="Cockpit order">Cockpit order</option>
+						<option value="Cockpit productionsorder">Cockpit
+							productionsorder</option>
+						<option value="Message">Message</option>
+					</select>
+				</div>
+			</ng-form>
+		</div>		
+		<div class="form-group" ng-class="{'has-error': fieldDirectoryWatch.directoryWatch.$invalid}">
+			<ng-form name="fieldDirectoryWatch">
+				<label for="directoryWatch" class="col-sm-2 control-label">Directory watch</label>
+				<div class="col-sm-5">
+					<input id="directoryWatch" name="directoryWatch" class="form-control" type="text" ng-model="job.directoryWatch" required/>
+				</div>
+			</ng-form>
+		</div>
+		<div class="form-group" ng-class="{'has-error': fieldFileExtension.fileExtension.$invalid}">
+			<ng-form name="fieldFileExtension">
+				<label for="fileExtension" class="col-sm-2 control-label">File extension</label>
+				<div class="col-sm-2">
+					<select id="fileExtension" name="fileExtension" class="form-control" ng-model="job.fileExtension" required>
+						<option value="xml">xml</option>
+					</select>
+				</div>
+			</ng-form>
 		</div>
 		<div class="form-group">
-			<label for="directoryWatch" class="col-sm-2 control-label">Directory watch</label>
-			<div class="col-sm-5">
-				<input id="directoryWatch" class="form-control" type="text" ng-model="job.directoryWatch" />
-			</div>
+			<ng-form name="fieldDirection">
+				<label for="direction" class="col-sm-2 control-label">Direction</label>
+				<div class="col-sm-1 pull-left">
+					<input id="direction" name="direction" type="checkbox" ng-model="job.direction" />
+				</div>
+			</ng-form>
 		</div>
 		<div class="form-group">
-			<label for="fileExtension" class="col-sm-2 control-label">File extension</label>
-			<div class="col-sm-2">
-				<select id="fileExtension" class="form-control" ng-model="job.fileExtension">
-					<option value="xml">xml</option>
-				</select>
-			</div>
+			<ng-form name="fieldOnline">
+				<label for="online" class="col-sm-2 control-label">Online</label>
+				<div class="col-sm-1">
+					<input id="online" name="online" type="checkbox" ng-model="job.online" />
+				</div>
+			</ng-form>
 		</div>
-		<div class="form-group">
-			<label for="direction" class="col-sm-2 control-label">Direction</label>
-			<div class="col-sm-1 pull-left">
-				<input id="direction" class="form-control" type="checkbox"
-					ng-model="job.direction" />
-			</div>
+		<div class="form-group" ng-class="{'has-error': fieldPathName.jobPathName.$invalid}">
+			<ng-form name="fieldPathName">
+				<label for="jobPathName" class="col-sm-2 control-label">Job path name</label>
+				<div class="col-sm-2">
+					<select id="jobPathName" name="jobPathName" class="form-control" ng-model="job.jobPathName" required>
+						<option value="statusevent">statusevent</option>
+						<option value="kundorder">kundorder</option>
+						<option value="productionorder">productionorder</option>
+						<option value="order">order</option>
+						<option value="message">message</option>
+						<option value="statuseventNF">statuseventNF</option>
+					</select>
+				</div>
+			</ng-form>
 		</div>
-		<div class="form-group">
-			<label for="online" class="col-sm-2 control-label">Online</label>
-			<div class="col-sm-1">
-				<input id="online" class="form-control" type="checkbox"
-					ng-model="job.online" />
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="jobPathName" class="col-sm-2 control-label">Job path name</label>
-			<div class="col-sm-2">
-				<select id="jobPathName" class="form-control" ng-model="job.jobPathName">
-					<option value="statusevent">statusevent</option>
-					<option value="kundorder">kundorder</option>
-					<option value="productionorder">productionorder</option>
-					<option value="order">order</option>
-					<option value="message">message</option>
-					<option value="statuseventNF">statuseventNF</option>
-				</select>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="numberOfAttemptsAllowed" class="col-sm-2 control-label">Attempts allowed</label>
-			<div class="col-sm-2">
-				<input id="numberOfAttemptsAllowed" type="number" class="form-control"
-					ng-model="job.numberOfAttemptsAllowed" size="2" maxlength="2" />
-			</div>
+		<div class="form-group" ng-class="{'has-error': fieldAttemptsAllowed.numberOfAttemptsAllowed.$invalid}">
+			<ng-form name="fieldAttemptsAllowed">
+				<label for="numberOfAttemptsAllowed" class="col-sm-2 control-label">Attempts allowed</label>
+				<div class="col-sm-2">
+					<input id="numberOfAttemptsAllowed" name="numberOfAttemptsAllowed" type="number" class="form-control"
+						ng-model="job.numberOfAttemptsAllowed" size="2" maxlength="2" min="0" required/>
+				</div>
+			</ng-form>
 		</div>			
-		<div class="form-group">
-			<label for="priority" class="col-sm-2 control-label">Priority</label>
-			<div class="col-sm-2">
-				<input id="priority" type="number" class="form-control"
-					ng-model="job.priority" size="1" maxlength="1" />
-			</div>
+		<div class="form-group" ng-class="{'has-error': fieldPriority.priority.$invalid}">
+			<ng-form name="fieldPriority">
+				<label for="priority" class="col-sm-2 control-label">Priority</label>
+				<div class="col-sm-2">
+					<input id="priority" name="priority" type="number" class="form-control"
+						ng-model="job.priority" size="1" maxlength="1" required/>
+				</div>
+			</ng-form>
 		</div>			
 	</div>
 
@@ -76,35 +90,53 @@
 			<thead>
 				<tr>
 					<th>Order</th>
-					<th>Description</th>
+					<th>Name</th>
 					<th>Processor id</th>
 					<th>Notify on success</th>
 					<th>Notify on error</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="process in job.processes">
-					<td><input id="order" type="number" class="form-control"
-					ng-model="process.order" size="1" maxlength="1" /></td>
 					<td>
-						<select id="processDescription" class="form-control" ng-model="process.description">
-							<option value="converter">converter</option>
-							<option value="archive">archive</option>
-							<option value="transfer">transfer</option>
-							<option value="convert">convert</option>
-							<option value="validate">validate</option>
-						</select>
+						<div ng-class="{'has-error': fieldOrder.order.$invalid}">
+							<ng-form name="fieldOrder">
+								<input id="order" name="order" type="number" class="form-control"
+						ng-model="process.order" size="1" maxlength="1" required/>
+							</ng-form>
+						</div>
 					</td>
-					<td><input id="processorId" type="number" class="form-control"
-					ng-model="process.processorId" /></td>
-					<td><input id="notifyOnSuccess" class="form-control" type="checkbox"
+					<td>
+						<div ng-class="{'has-error': fieldProcessName.processNameId.$invalid}">
+							<ng-form name="fieldProcessName">
+								<select id="processNameId" name="processNameId" class="form-control" ng-model="process.processName.id" required>
+									<option value="1">converter</option>
+									<option value="2">transfer</option>
+									<option value="3">archive</option>
+									<option value="4">validate</option>
+								</select>
+							</ng-form>
+						</div>
+						<input type="hidden" name="processNameName" ng-model="process.processName.name" />
+					</td>
+					<td>
+						<div ng-class="{'has-error': fieldProcessorId.processorId.$invalid}">
+							<ng-form name="fieldProcessorId">
+								<input id="processorId" name="processorId" type="number" class="form-control"
+								ng-model="process.processorId" required/>
+							</ng-form>
+						</div>
+					</td>
+					<td><input id="notifyOnSuccess" type="checkbox"
 					ng-model="process.notifyOnSuccess" /></td>
-					<td><input id="notifyOnError" class="form-control" type="checkbox"
+					<td><input id="notifyOnError" type="checkbox"
 					ng-model="process.notifyOnError" /></td>
+					<td><a ng-click="removeProcess(job, $index)"><i class="fa fa-minus-circle fa-2x text-danger"></i></a></td>
 				</tr>
 			</tbody>
 		</table>
+		<a ng-click="addProcess(job, $index)"><i class="fa fa-plus-circle fa-2x text-success"></i></a>
 	</div>
 	<button ng-click="saveJob($index)" type="button" class="btn btn-primary pull-right">Save</button>
-</form>
-	
+</form>	

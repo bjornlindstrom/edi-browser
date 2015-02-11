@@ -50,7 +50,7 @@ public class PartnerJob implements Serializable {
 	@NotNull
 	@JsonBackReference
 	private Partner partner;
-	@OneToMany(mappedBy = "partnerJob", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "partnerJob", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
 	@Valid
 	@JsonManagedReference
 	private List<Process> processes;

@@ -4,19 +4,21 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "tb_process")
-// @NamedQueries(
-// @NamedQuery(name = Partner.FIND_ALL, query = "SELECT p FROM Partner p"))
 public class Process implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -34,16 +36,16 @@ public class Process implements Serializable {
 	@NotNull
 	private Integer order;
 	@Column(name = "process_description")
-	@NotNull
 	private String description;
-	// private ProcessNames processNames;
 	@NotNull
 	private Integer processorId;
 	private boolean notifyOnSuccess;
 	private boolean notifyOnError;
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "process_name_id")
-//	private ProcessName processName;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "process_name_id")
+	@Valid
+	@NotNull
+	private ProcessName processName;
 
 	public Integer getId() {
 		return id;
@@ -100,14 +102,14 @@ public class Process implements Serializable {
 	public void setNotifyOnError(boolean notifyOnError) {
 		this.notifyOnError = notifyOnError;
 	}
-//
-//	public ProcessName getProcessName() {
-//		return processName;
-//	}
-//
-//	public void setProcessName(ProcessName processName) {
-//		this.processName = processName;
-//	}
+
+	public ProcessName getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(ProcessName processName) {
+		this.processName = processName;
+	}
 
 	@Override
 	public String toString() {
@@ -115,5 +117,13 @@ public class Process implements Serializable {
 				+ order + ", description=" + description + ", processorId="
 				+ processorId + ", notifyOnSuccess=" + notifyOnSuccess
 				+ ", notifyOnError=" + notifyOnError + "]";
+	}
+	
+	@PrePersist
+	@PreUpdate
+	public void update(){
+		if (getProcessName() != null) {
+			setDescription(getProcessName().getName());
+		}
 	}
 }

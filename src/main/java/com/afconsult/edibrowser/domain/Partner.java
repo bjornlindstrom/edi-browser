@@ -12,8 +12,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -41,6 +41,7 @@ public class Partner implements Serializable {
 	private String name;
 	@Column(name = "partner_path_name")
 	@NotNull
+	@Pattern(regexp = "[a-zA-Z0-9-_]")
 	private String pathName;
 	@Column(name = "partner_contact")
 	private String contact;
@@ -51,7 +52,6 @@ public class Partner implements Serializable {
 	private String email;
 	@OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
 	@JsonManagedReference
-	@Valid
 	private List<PartnerJob> partnerJobs;
 
 	public Integer getId() {

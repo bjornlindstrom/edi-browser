@@ -8,6 +8,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+
+import com.afconsult.edibrowser.filter.CsrfHeaderFilter;
 
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
@@ -16,18 +21,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private SecurityProperties security;
 
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/bower_components/**", "/favicon.ico");
+	}
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers("/bower_components/**", "/favicon.ico");
-    }
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().permitAll();
-//		http.authorizeRequests().anyRequest().fullyAuthenticated().and().formLogin()
-//				.loginPage("/login").failureUrl("/login?error").permitAll();
+		http.authorizeRequests().anyRequest().fullyAuthenticated().and()
+				.formLogin().loginPage("/login").failureUrl("/login?error")
+				.permitAll().and()
+				.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+				.csrf().csrfTokenRepository(csrfTokenRepository());
 	}
 
 	@Override
@@ -35,5 +40,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		auth.inMemoryAuthentication().withUser("admin").password("admin")
 				.roles("ADMIN", "USER").and().withUser("user").password("user")
 				.roles("USER");
-	}	
+	}
+
+	private CsrfTokenRepository csrfTokenRepository() {
+		HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+		repository.setHeaderName("X-XSRF-TOKEN");
+		return repository;
+	}
 }
