@@ -28,10 +28,11 @@ public class Transfer implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "partner_job_id")
 	private PartnerJob partnerJob;
+	@Column(name = "selected_transfer_method_id")
 	private Integer selectedTransferMethodId;
 
 	@OneToOne
-	@JoinColumn(name = "selected_transfer_method_id")
+	@JoinColumn(name = "selected_transfer_method_id", insertable = false, updatable = false)
 	private TransferFilecopy transferFilecopy;
 	
 	public Integer getId() {

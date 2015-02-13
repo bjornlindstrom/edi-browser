@@ -30,12 +30,18 @@ partnerController.controller('partnerCtrl', ['$scope', '$http', 'notificationSer
 
 partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routeParams', 'partnerService', 'notificationService', 
   function($scope, $http, $routeParams, partnerService, notificationService) {
-		
+	var vm = this;
+	
 	if ($routeParams.partnerId) {
 		$http.get('/partner/'+$routeParams.partnerId)
 		.success(function(data) {
 		      $scope.partner = data;
 		      $scope.partnerId = $routeParams.partnerId;
+		      for (var i = 0; i < data.partnerJobs.length; i++) {
+		    	  for (var j = 0; j < data.partnerJobs[i].processes.length; j++) {
+		    		  vm.loadProcessorIds(data.partnerJobs[i].processes[j].processName.id);
+		    	  }
+		      }
 		})
 		.error(function(data){
 			notificationService.error("Could not get the partner: " + (data ? data.message : ''));
@@ -95,13 +101,28 @@ partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routePar
 	 $scope.removeProcess = function(job, idx){
 		 job.processes.splice(idx, 1);
 	 };
+	 
+	 vm.loadProcessorIds = function(processNameId){
+		 if (!vm.processorIds) {
+			 vm.processorIds = [];
+		 }
+		 if (!vm.processorIds[processNameId]) {
+			 $http.get('/processorids/'+processNameId).success(function(data){
+				 vm.processorIds[processNameId] = data;
+			 });
+		 }
+	 };
+	 
+	 $http.get('/processnames').success(function(data){
+		 vm.processNames = data;
+	 });
 }])
 .directive('partnerJob', function(){
 	
 	return {
-		  restrict:'E',
-		  templateUrl: '/components/partner/partner-job.html',
-		  scope: true,	      
+		restrict:'E',
+		templateUrl: '/components/partner/partner-job.html',
+		scope: true,	      
 	};
 });
 

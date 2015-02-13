@@ -8,16 +8,20 @@
 	ediApp.config([ '$routeProvider', function($routeProvider) {
 		$routeProvider.when('/partner', {
 			templateUrl : 'components/partner/partners-list.html',
-			controller : 'partnerCtrl'
+			controller : 'partnerCtrl',
+			controllerAs: 'vm'
 		}).when('/partner/add', {
 			templateUrl : 'components/partner/partner-detail.html',
-			controller : 'partnerDetailCtrl'
+			controller : 'partnerDetailCtrl',
+			controllerAs: 'vm'
 		}).when('/partner/:partnerId', {
 			templateUrl : 'components/partner/partner-detail.html',
-			controller : 'partnerDetailCtrl'
+			controller : 'partnerDetailCtrl',
+			controllerAs: 'vm'
 		}).when('/error', {
 			templateUrl : 'components/error/error-list.html',
-			controller : 'errorCtrl'
+			controller : 'errorCtrl',
+			controllerAs: 'vm'
 		}).otherwise({
 			redirectTo : '/partner'
 		});

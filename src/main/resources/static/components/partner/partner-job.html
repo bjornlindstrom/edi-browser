@@ -110,11 +110,9 @@
 					<td>
 						<div ng-class="{'has-error': fieldProcessName.processNameId.$invalid}">
 							<ng-form name="fieldProcessName">
-								<select id="processNameId" name="processNameId" class="form-control" ng-model="process.processName.id" required>
-									<option value="1">converter</option>
-									<option value="2">transfer</option>
-									<option value="3">archive</option>
-									<option value="4">validate</option>
+								<select id="processNameId" name="processNameId" ng-change="vm.loadProcessorIds(process.processName.id)" class="form-control" 
+								ng-model="process.processName.id" 
+								ng-options="value.id as value.name for value in vm.processNames" required>
 								</select>
 							</ng-form>
 						</div>
@@ -123,8 +121,10 @@
 					<td>
 						<div ng-class="{'has-error': fieldProcessorId.processorId.$invalid}">
 							<ng-form name="fieldProcessorId">
-								<input id="processorId" name="processorId" type="number" class="form-control"
-								ng-model="process.processorId" required/>
+								<select id="processorId" name="processorId" type="number" class="form-control"
+								ng-model="process.processorId" required>
+									<option ng-repeat="processorId in vm.processorIds[process.processName.id]" value="{{processorId}}">{{processorId}}</option>
+								</select>								
 							</ng-form>
 						</div>
 					</td>

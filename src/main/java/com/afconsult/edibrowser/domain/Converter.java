@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_converter")
+@Table(name = "tb_converters")
 public class Converter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
