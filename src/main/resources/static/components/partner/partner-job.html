@@ -91,6 +91,7 @@
 				<tr>
 					<th>Order</th>
 					<th>Name</th>
+					<th>Method</th>
 					<th>Processor id</th>
 					<th>Notify on success</th>
 					<th>Notify on error</th>
@@ -108,22 +109,31 @@
 						</div>
 					</td>
 					<td>
-						<div ng-class="{'has-error': fieldProcessName.processNameId.$invalid}">
+						<div ng-class="{'has-error': fieldProcessName.processName.$invalid}">
 							<ng-form name="fieldProcessName">
-								<select id="processNameId" name="processNameId" ng-change="vm.loadProcessorIds(process.processName.id)" class="form-control" 
-								ng-model="process.processName.id" 
-								ng-options="value.id as value.name for value in vm.processNames" required>
+								<select id="processName" name="processName" ng-change="vm.loadProcessorIds(process)" class="form-control" 
+								ng-model="process.processName" 
+								ng-options="processName as processName.name for processName in vm.processNames track by processName.id" required>
 								</select>
 							</ng-form>
 						</div>
 						<input type="hidden" name="processNameName" ng-model="process.processName.name" />
 					</td>
 					<td>
+						<div ng-class="{'has-error': fieldProcessMethod.processMethod.$invalid}">
+							<ng-form name="fieldProcessMethod">
+								<select id="processMethod" name="processMethod" class="form-control" 
+								ng-model="process.transferMethod" ng-change="vm.loadProcessorIds(process)"
+								ng-options="method.name for method in vm.processMethods track by method.id">
+								</select>
+							</ng-form>
+						</div>
+					</td>
+					<td>
 						<div ng-class="{'has-error': fieldProcessorId.processorId.$invalid}">
 							<ng-form name="fieldProcessorId">
 								<select id="processorId" name="processorId" type="number" class="form-control"
-								ng-model="process.processorId" required>
-									<option ng-repeat="processorId in vm.processorIds[process.processName.id]" value="{{processorId}}">{{processorId}}</option>
+								ng-model="process.processorId" ng-options="processorId for processorId in vm.processorIds[process.processName.id + (process.transferMethod ? process.transferMethod.name : '')] track by processorId" required>
 								</select>								
 							</ng-form>
 						</div>

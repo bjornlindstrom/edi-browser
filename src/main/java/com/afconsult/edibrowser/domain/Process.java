@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -46,6 +48,8 @@ public class Process implements Serializable {
 	@Valid
 	@NotNull
 	private ProcessName processName;
+	@Transient
+	private TransferMethod transferMethod;
 
 	public Integer getId() {
 		return id;
@@ -109,6 +113,14 @@ public class Process implements Serializable {
 
 	public void setProcessName(ProcessName processName) {
 		this.processName = processName;
+	}	
+
+	public TransferMethod getTransferMethod() {
+		return transferMethod;
+	}
+
+	public void setTransferMethod(TransferMethod transferMethod) {
+		this.transferMethod = transferMethod;
 	}
 
 	@Override
@@ -125,5 +137,23 @@ public class Process implements Serializable {
 		if (getProcessName() != null) {
 			setDescription(getProcessName().getName());
 		}
+		if (isTransferProcess() && hasTransferMethod()) {
+			getPartnerJob().getTransfer().setTransferMethod(getTransferMethod());
+		}
+	}
+	
+	@PostLoad
+	public void load(){
+		if (isTransferProcess() && hasTransferMethod()) {
+			setTransferMethod(getPartnerJob().getTransfer().getTransferMethod());
+		}
+	}
+	
+	private boolean isTransferProcess(){
+		return getProcessName() != null && "transfer".equals(getProcessName().getName());
+	}
+	
+	private boolean hasTransferMethod(){
+		return getPartnerJob() != null && getPartnerJob().getTransfer() != null;
 	}
 }

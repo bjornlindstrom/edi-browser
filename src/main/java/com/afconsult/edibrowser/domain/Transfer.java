@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "tb_transfer")
 public class Transfer implements Serializable {
@@ -22,11 +26,13 @@ public class Transfer implements Serializable {
 	@GeneratedValue
 	@Column(unique = true, nullable = false, updatable = false, name = "transfer_id")
 	private Integer id;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "transfer_method_id")
+	@JsonManagedReference
 	private TransferMethod transferMethod;
 	@OneToOne
 	@JoinColumn(name = "partner_job_id")
+	@JsonIgnore
 	private PartnerJob partnerJob;
 	@Column(name = "selected_transfer_method_id")
 	private Integer selectedTransferMethodId;

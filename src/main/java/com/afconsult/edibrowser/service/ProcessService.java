@@ -7,6 +7,6 @@ import com.afconsult.edibrowser.domain.ProcessName;
 public interface ProcessService {
 
 	List<ProcessName> getAllProcessNames();
-	List<Integer> getProcessorIds(Integer processorNameId);
+	List<Integer> getProcessorIds(Integer processorNameId, String transferMethodName);
 	
 }

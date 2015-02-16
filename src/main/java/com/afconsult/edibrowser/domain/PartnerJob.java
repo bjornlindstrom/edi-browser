@@ -11,12 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -54,6 +56,9 @@ public class PartnerJob implements Serializable {
 	@Valid
 	@JsonManagedReference
 	private List<Process> processes;
+	@OneToOne(mappedBy = "partnerJob", optional = true)
+	@JsonIgnore
+	private Transfer transfer;
 
 	public Integer getId() {
 		return id;
@@ -141,6 +146,14 @@ public class PartnerJob implements Serializable {
 
 	public void setProcesses(List<Process> processes) {
 		this.processes = processes;
+	}
+
+	public Transfer getTransfer() {
+		return transfer;
+	}
+
+	public void setTransfer(Transfer transfer) {
+		this.transfer = transfer;
 	}
 
 	@Override

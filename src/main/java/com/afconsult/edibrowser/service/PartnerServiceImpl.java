@@ -32,7 +32,8 @@ public class PartnerServiceImpl implements PartnerService {
 		Partner partner = partnerRepository.findOne(partnerId);
 		if (partner != null) {
 			for (PartnerJob partnerJob : partner.getPartnerJobs()) {
-				partnerJob.getProcesses();
+				partnerJob.getProcesses();				
+				partnerJob.getTransfer();				
 			}
 		}
 		if (partner == null || partner.getId() == null || partner.getAliasId() == null) {

@@ -39,7 +39,7 @@ partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routePar
 		      $scope.partnerId = $routeParams.partnerId;
 		      for (var i = 0; i < data.partnerJobs.length; i++) {
 		    	  for (var j = 0; j < data.partnerJobs[i].processes.length; j++) {
-		    		  vm.loadProcessorIds(data.partnerJobs[i].processes[j].processName.id);
+		    		  vm.loadProcessorIds(data.partnerJobs[i].processes[j]);
 		    	  }
 		      }
 		})
@@ -102,19 +102,31 @@ partnerController.controller('partnerDetailCtrl', ['$scope', '$http', '$routePar
 		 job.processes.splice(idx, 1);
 	 };
 	 
-	 vm.loadProcessorIds = function(processNameId){
+	 vm.loadProcessorIds = function(process){
 		 if (!vm.processorIds) {
 			 vm.processorIds = [];
 		 }
-		 if (!vm.processorIds[processNameId]) {
-			 $http.get('/processorids/'+processNameId).success(function(data){
-				 vm.processorIds[processNameId] = data;
+		 var transferName = process.transferMethod ? process.transferMethod.name : '';
+		 var key = process.processName.id + transferName;
+		 if (!vm.processorIds[key]) {
+			 $http.get('/processorids', {
+				 'params': {
+					 'processorNameId': process.processName.id,
+					 'transferMethodName': transferName
+				 }
+			 })
+			 .success(function(data){
+				 vm.processorIds[key] = data;
 			 });
-		 }
+		 }		 
 	 };
 	 
 	 $http.get('/processnames').success(function(data){
 		 vm.processNames = data;
+	 });
+	 
+	 $http.get('/transfermethods').success(function(data){
+		 vm.processMethods = data;
 	 });
 }])
 .directive('partnerJob', function(){
